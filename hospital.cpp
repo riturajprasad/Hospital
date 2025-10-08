@@ -174,56 +174,18 @@ int main()
             }
             cout << endl;
             cin >> drchoice;
-            if (drchoice == 1)
+            if (sh->getDr() == sh->doctors[drchoice - 1])
             {
-                if (sh->getDr() == sh->doctors[0])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient appointed to this Doctor" << endl;
-            }
-            else if (drchoice == 2)
-            {
-                if (sh->getDr() == sh->doctors[1])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient appointed to this Doctor" << endl;
-            }
-            else if (drchoice == 3)
-            {
-                if (sh->getDr() == sh->doctors[2])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient appointed to this Doctor" << endl;
-            }
-            else if (drchoice == 4)
-            {
-                if (sh->getDr() == sh->doctors[3])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient appointed to this Doctor" << endl;
-            }
-            else if (drchoice == 5)
-            {
-                if (sh->getDr() == sh->doctors[4])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient appointed to this Doctor" << endl;
-            }
-            else
-            {
-                cout << "You enterd wrong number, please check the List" << endl;
+                sh->view_Appointments();
                 break;
             }
+            else if (drchoice == 1 || drchoice == 2 || drchoice == 3 || drchoice == 4 || drchoice == 5)
+            {
+                cout << "No Patient appointed to this Doctor" << endl;
+                break;
+            }
+            else
+                cout << "You enterd wrong number, please check the List" << endl;
             break;
         case 4:
             cout << "Enetr Patient Id From: \n";
@@ -233,56 +195,12 @@ int main()
             }
             cout << endl;
             cin >> Idchoice;
-            if (Idchoice == 1)
+            if (sh->getId() == sh->IdList[Idchoice - 1])
             {
-                if (sh->getId() == sh->IdList[0])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient wit this Id, please check the List" << endl;
-            }
-            else if (Idchoice == 2)
-            {
-                if (sh->getId() == sh->IdList[1])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient wit this Id, please check the List" << endl;
-            }
-            else if (Idchoice == 3)
-            {
-                if (sh->getId() == sh->IdList[2])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient wit this Id, please check the List" << endl;
-            }
-            else if (Idchoice == 4)
-            {
-                if (sh->getId() == sh->IdList[3])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient wit this Id, please check the List" << endl;
-            }
-            else if (Idchoice == 5)
-            {
-                if (sh->getId() == sh->IdList[4])
-                {
-                    sh->view_Appointments();
-                }
-                else
-                    cout << "No Patient wit this Id, please check the List" << endl;
+                sh->view_Appointments();
             }
             else
-            {
-                cout << "You enterd wrong number, please check the List" << endl;
-                break;
-            }
+                cout << "No Patient with this Id, please check the List" << endl;
             break;
         default:
             cout << "Please enterd valid number" << endl;
