@@ -181,7 +181,7 @@ int main()
             }
             else if (drchoice == 1 || drchoice == 2 || drchoice == 3 || drchoice == 4 || drchoice == 5)
             {
-                cout << "No Patient appointed to this Doctor" << endl;
+                cout << "No Patient appointed to " << sh->doctors[drchoice - 1] << endl;
                 break;
             }
             else
@@ -200,7 +200,7 @@ int main()
                 sh->view_Appointments();
             }
             else
-                cout << "No Patient with this Id, please check the List" << endl;
+                cout << "You enterd wrong number, please check the List" << endl;
             break;
         default:
             cout << "Please enterd valid number" << endl;
