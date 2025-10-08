@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -109,11 +110,13 @@ int main()
             break;
         case 1:
             cout << "Enter Patient Name: ";
-            cin >> name;
+            getline(std::cin, name);
+            getline(std::cin, name);
             cout << "Enter Patient Phone Number: ";
             cin >> phoneNo;
             cout << "Enter Patient City: ";
-            cin >> city;
+            getline(std::cin, city);
+            getline(std::cin, city);
             cout << "Enter Patient Type From: \n";
             for (int i = 0; i < patientTypeList.size(); i++)
             {
@@ -137,6 +140,7 @@ int main()
                 break;
             }
             ht->add_Patients(name, phoneNo, city, patientType);
+            cout << "Patient added successfully!" << endl;
             break;
         case 2:
             ht->view_Appointments();
