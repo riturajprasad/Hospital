@@ -9,7 +9,7 @@ private:
     vector<string> ward = {"General", "ICU", "OPD"};
     int pid = 10000;
     string pname;
-    int pphoneNo;
+    long long pphoneNo;
     string pcity;
     string ppatientType;
     string doctorName;
@@ -60,7 +60,7 @@ private:
     }
 
 public:
-    void add_Patients(string name, int phoneNo, string city, string patientType)
+    void add_Patients(string name, long long phoneNo, string city, string patientType)
     {
         pname = name;
         pphoneNo = phoneNo;
@@ -88,7 +88,7 @@ int main()
     int i;
     vector<string> patientTypeList = {"Seasonal Fever", "Accident", "Severe Accident", "Severe Disease", "Skin Disease"};
     string name;
-    int phoneNo;
+    long long phoneNo;
     string city;
     int Type;
     string patientType;
