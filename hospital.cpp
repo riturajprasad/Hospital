@@ -5,9 +5,12 @@ using namespace std;
 
 class Hospital
 {
-private:
+public:
     vector<string> doctors = {"Dr. Amit", "Dr. Ajay", "Dr. Pankaj", "Dr. Alok", "Gulshan"};
     vector<string> ward = {"General", "ICU", "OPD"};
+    vector<int> IdList;
+
+protected:
     int pid = 10000;
     string pname;
     long long pphoneNo;
@@ -25,6 +28,7 @@ private:
     void setId()
     {
         pid++;
+        IdList.push_back(pid);
     }
     void set_Doctor_and_Ward()
     {
@@ -83,10 +87,25 @@ public:
     }
 };
 
+class Search : public Hospital
+{
+public:
+    Search() {}
+    ~Search() {}
+    string getDr()
+    {
+        return doctorName;
+    }
+    int getId()
+    {
+        return pid;
+    }
+};
+
 int main()
 {
-    Hospital *ht = new Hospital();
-    int i;
+    Search *sh = new Search();
+    int choice, drchoice, Idchoice;
     vector<string> patientTypeList = {"Seasonal Fever", "Accident", "Severe Accident", "Severe Disease", "Skin Disease"};
     string name;
     long long phoneNo;
@@ -98,13 +117,15 @@ int main()
         cout << "------------------------------------------" << endl;
         cout << "1 : Add Patient" << endl;
         cout << "2 : View Patient" << endl;
+        cout << "3 : Search by Doctor" << endl;
+        cout << "4 : Search by Paitent Id" << endl;
         cout << "0 : Exit" << endl;
         cout << "------------------------------------------" << endl
              << endl;
         cout << "Enter your choice: ";
-        cin >> i;
+        cin >> choice;
 
-        switch (i)
+        switch (choice)
         {
         case 0:
             break;
@@ -139,18 +160,135 @@ int main()
                 cout << "You enterd wrong Patient Type, please check the List" << endl;
                 break;
             }
-            ht->add_Patients(name, phoneNo, city, patientType);
+            sh->add_Patients(name, phoneNo, city, patientType);
             cout << "Patient added successfully!" << endl;
             break;
         case 2:
-            ht->view_Appointments();
+            sh->view_Appointments();
             break;
-
+        case 3:
+            cout << "Enetr Doctor Name From: \n";
+            for (int i = 0; i < sh->doctors.size(); i++)
+            {
+                cout << i + 1 << ": " << sh->doctors[i] << " | ";
+            }
+            cout << endl;
+            cin >> drchoice;
+            if (drchoice == 1)
+            {
+                if (sh->getDr() == sh->doctors[0])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient appointed to this Doctor" << endl;
+            }
+            else if (drchoice == 2)
+            {
+                if (sh->getDr() == sh->doctors[1])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient appointed to this Doctor" << endl;
+            }
+            else if (drchoice == 3)
+            {
+                if (sh->getDr() == sh->doctors[2])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient appointed to this Doctor" << endl;
+            }
+            else if (drchoice == 4)
+            {
+                if (sh->getDr() == sh->doctors[3])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient appointed to this Doctor" << endl;
+            }
+            else if (drchoice == 5)
+            {
+                if (sh->getDr() == sh->doctors[4])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient appointed to this Doctor" << endl;
+            }
+            else
+            {
+                cout << "You enterd wrong number, please check the List" << endl;
+                break;
+            }
+            break;
+        case 4:
+            cout << "Enetr Patient Id From: \n";
+            for (int i = 0; i < sh->IdList.size(); i++)
+            {
+                cout << i + 1 << ": " << sh->IdList[i] << " | ";
+            }
+            cout << endl;
+            cin >> Idchoice;
+            if (Idchoice == 1)
+            {
+                if (sh->getId() == sh->IdList[0])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient wit this Id, please check the List" << endl;
+            }
+            else if (Idchoice == 2)
+            {
+                if (sh->getId() == sh->IdList[1])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient wit this Id, please check the List" << endl;
+            }
+            else if (Idchoice == 3)
+            {
+                if (sh->getId() == sh->IdList[2])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient wit this Id, please check the List" << endl;
+            }
+            else if (Idchoice == 4)
+            {
+                if (sh->getId() == sh->IdList[3])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient wit this Id, please check the List" << endl;
+            }
+            else if (Idchoice == 5)
+            {
+                if (sh->getId() == sh->IdList[4])
+                {
+                    sh->view_Appointments();
+                }
+                else
+                    cout << "No Patient wit this Id, please check the List" << endl;
+            }
+            else
+            {
+                cout << "You enterd wrong number, please check the List" << endl;
+                break;
+            }
+            break;
         default:
             cout << "Please enterd valid number" << endl;
             break;
         }
-        if (i == 0)
+        if (choice == 0)
             break;
     }
     return 0;
