@@ -6,7 +6,7 @@ using namespace std;
 class Hospital
 {
 public:
-    vector<string> doctors = {"Dr. Amit", "Dr. Ajay", "Dr. Pankaj", "Dr. Alok", "Gulshan"};
+    vector<string> doctors = {"Dr. Amit", "Dr. Ajay", "Dr. Pankaj", "Dr. Alok", "Dr. Gulshan"};
     vector<string> ward = {"General", "ICU", "OPD"};
     inline static vector<int> IdList;
 
@@ -114,6 +114,7 @@ int main()
         cout << "2 : View Patient" << endl;
         cout << "3 : Search by Doctor" << endl;
         cout << "4 : Search by Paitent Id" << endl;
+        cout << "5 : Delete Paitent" << endl;
         cout << "0 : Exit" << endl;
         cout << "------------------------------------------" << endl
              << endl;
@@ -231,6 +232,35 @@ int main()
             }
             if (!found)
                 cout << "You enterd wrong number, please check the List" << endl;
+            break;
+        }
+        case 5:
+        {
+            int storeId;
+            cout << "Enetr patient Id which you want to delete: ";
+            cin >> storeId;
+            bool found = false;
+            for (int i = 0; i < pData.size(); i++)
+            {
+                if (pData[i]->getId() == storeId)
+                {
+                    delete pData[i];
+                    pData.erase(pData.begin() + i);
+                    for (int j = 0; j < Hospital::IdList.size(); j++)
+                    {
+                        if (Hospital::IdList[j] == storeId)
+                        {
+                            Hospital::IdList.erase(Hospital::IdList.begin() + j);
+                            break;
+                        }
+                    }
+                    found = true;
+                    cout << "Patient with ID " << storeId << " deleted successfully!" << endl;
+                    break;
+                }
+            }
+            if (!found)
+                cout << "This id not exist, try again or use search by Id to know id." << endl;
             break;
         }
         default:
