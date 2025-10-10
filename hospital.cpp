@@ -8,10 +8,11 @@ class Hospital
 public:
     vector<string> doctors = {"Dr. Amit", "Dr. Ajay", "Dr. Pankaj", "Dr. Alok", "Gulshan"};
     vector<string> ward = {"General", "ICU", "OPD"};
-    vector<int> IdList;
+    inline static vector<int> IdList;
 
-protected:
-    int pid = 10000;
+private:
+    inline static int newId = 10000;
+    int pid;
     string pname;
     long long pphoneNo;
     string pcity;
@@ -27,8 +28,9 @@ public:
 private:
     void setId()
     {
-        pid++;
-        IdList.push_back(pid);
+        newId++;
+        pid = newId;
+        IdList.push_back(newId);
     }
     void set_Doctor_and_Ward()
     {
@@ -85,13 +87,6 @@ public:
         cout << "\tPatient's Ward Name = " << wardName << endl;
         cout << "\tPatient charge to submit = " << price << endl;
     }
-};
-
-class Search : public Hospital
-{
-public:
-    Search() {}
-    ~Search() {}
     string getDr()
     {
         return doctorName;
@@ -104,7 +99,7 @@ public:
 
 int main()
 {
-    Search *sh = new Search();
+    vector<Hospital *> pData;
     int choice, drchoice, Idchoice;
     vector<string> patientTypeList = {"Seasonal Fever", "Accident", "Severe Accident", "Severe Disease", "Skin Disease"};
     string name;
@@ -130,13 +125,14 @@ int main()
         case 0:
             break;
         case 1:
+        {
             cout << "Enter Patient Name: ";
-            getline(std::cin, name);
+            cin.ignore();
             getline(std::cin, name);
             cout << "Enter Patient Phone Number: ";
             cin >> phoneNo;
             cout << "Enter Patient City: ";
-            getline(std::cin, city);
+            cin.ignore();
             getline(std::cin, city);
             cout << "Enter Patient Type From: \n";
             for (int i = 0; i < patientTypeList.size(); i++)
@@ -160,54 +156,94 @@ int main()
                 cout << "You enterd wrong Patient Type, please check the List" << endl;
                 break;
             }
+            Hospital *sh = new Hospital();
             sh->add_Patients(name, phoneNo, city, patientType);
+            pData.push_back(sh);
             cout << "Patient added successfully!" << endl;
+            cout << "Remember your patient Id for view the appointment: " << sh->getId() << endl;
             break;
+        }
         case 2:
-            sh->view_Appointments();
-            break;
-        case 3:
-            cout << "Enetr Doctor Name From: \n";
-            for (int i = 0; i < sh->doctors.size(); i++)
+        {
+            int storeId;
+            cout << "Enetr patient Id: ";
+            cin >> storeId;
+            bool found = false;
+            for (auto list : pData)
             {
-                cout << i + 1 << ": " << sh->doctors[i] << " | ";
+                if (list->getId() == storeId)
+                {
+                    list->view_Appointments();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                cout << "This id not exist, try again or use search by Id." << endl;
+            break;
+        }
+        case 3:
+        {
+            cout << "Enetr Doctor Name From: \n";
+            for (int i = 0; i < pData[0]->doctors.size(); i++)
+            {
+                cout << i + 1 << ": " << pData[0]->doctors[i] << " | ";
             }
             cout << endl;
             cin >> drchoice;
-            if (sh->getDr() == sh->doctors[drchoice - 1])
+            if (drchoice < 1 || drchoice > pData[0]->doctors.size())
             {
-                sh->view_Appointments();
-                break;
-            }
-            else if (drchoice == 1 || drchoice == 2 || drchoice == 3 || drchoice == 4 || drchoice == 5)
-            {
-                cout << "No Patient appointed to " << sh->doctors[drchoice - 1] << endl;
-                break;
-            }
-            else
                 cout << "You enterd wrong number, please check the List" << endl;
-            break;
-        case 4:
-            cout << "Enetr Patient Id From: \n";
-            for (int i = 0; i < sh->IdList.size(); i++)
+                break;
+            }
+            bool found = false;
+            for (auto list : pData)
             {
-                cout << i + 1 << ": " << sh->IdList[i] << " | ";
+                if (list->getDr() == list->doctors[drchoice - 1])
+                {
+                    list->view_Appointments();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+                cout << "No Patient appointed to " << pData[0]->doctors[drchoice - 1] << endl;
+            break;
+        }
+        case 4:
+        {
+            cout << "Enetr Patient Id From: \n";
+            for (int i = 0; i < pData[0]->IdList.size(); i++)
+            {
+                cout << i + 1 << ": " << pData[0]->IdList[i] << " | ";
             }
             cout << endl;
             cin >> Idchoice;
-            if (sh->getId() == sh->IdList[Idchoice - 1])
+            bool found = false;
+            for (auto list : pData)
             {
-                sh->view_Appointments();
+                if (list->getId() == list->IdList[Idchoice - 1])
+                {
+                    list->view_Appointments();
+                    found = true;
+                    break;
+                }
             }
-            else
+            if (!found)
                 cout << "You enterd wrong number, please check the List" << endl;
             break;
+        }
         default:
             cout << "Please enterd valid number" << endl;
             break;
         }
         if (choice == 0)
             break;
+    }
+
+    for (auto pt : pData)
+    {
+        delete pt;
     }
     return 0;
 }
